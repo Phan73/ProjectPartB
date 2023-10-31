@@ -5,13 +5,19 @@ namespace ProjectPartB.Models
 {
     public partial class UserDescription
     {
-        public int UserDescriptionId { get; set; }
-        public int? UserId { get; set; }
-        public string? FullName { get; set; }
-        public string? Address { get; set; }
-        public string? Phone { get; set; }
-        public string DrivingLicense { get; set; } = null!;
+        public UserDescription()
+        {
+            Rentals = new HashSet<Rental>();
+        }
 
-        public virtual User? User { get; set; }
+        public int UserId { get; set; }
+        public int? UserEnumId { get; set; }
+        public string? FirstName { get; set; }
+        public string? LastName { get; set; }
+        public string? Email { get; set; }
+        public string? Phone { get; set; }
+
+        public virtual UserEnum? UserEnum { get; set; }
+        public virtual ICollection<Rental> Rentals { get; set; }
     }
 }

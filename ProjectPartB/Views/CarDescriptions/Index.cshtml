@@ -2,7 +2,6 @@
 
 @{
     ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h1>Index</h1>
@@ -10,26 +9,35 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+<form id="searchForm" action="/CarDescriptions/index" method="get">
+    <p>Search Car Description</p> 
+    <input type="text" id="searchString" name="searchString" style="width:190px" autocomplete="off" onkeyup="AjaxRequest(this.value);" />
+    <br/>
+    <div id="autoSuggestContainer" style="position:absolute; display:none;z-index:100;"></div>
+    <input type="submit"value="Search"/>
+
+</form>
 <table class="table">
     <thead>
         <tr>
+            
             <th>
-                @Html.DisplayNameFor(model => model.Make)
+                @Html.DisplayNameFor(model => model.Brand)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Model)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Year)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Color)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PricePerDay)
+                @Html.DisplayNameFor(model => model.RatePerDay)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Availability)
+                @Html.DisplayNameFor(model => model.Available)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.CarType)
@@ -38,35 +46,94 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Make)
-            </td>
+@foreach (var item in Model) { 
+
+        <tr> 
+
+            <td> 
+
+                @Html.DisplayFor(modelItem => item.Brand)
+
+                @Html.Raw(item.Brand) 
+
+            </td> 
+                @Html.DisplayFor(modelItem => item.Description)
+           
             <td>
                 @Html.DisplayFor(modelItem => item.Model)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Year)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Color)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PricePerDay)
+                @Html.DisplayFor(modelItem => item.RatePerDay)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Availability.AvailabilityId)
+                @Html.DisplayFor(modelItem => item.Available)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CarType.CarTypeId)
+                @Html.DisplayFor(modelItem => item.CarType)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.CarId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.CarId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.CarId">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.CarDescriptionId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.CarDescriptionId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.CarDescriptionId">Delete</a>
             </td>
         </tr>
 }
     </tbody>
 </table>
+<script type="text/javascript">
+function AjaxRequest (searchString){
+    if (searchString.length < 2){
+        document.getElementById("autoSuggestContainer").innerHTML = "";
+        return;
+    }
+    //alert ("Testing searchString="+ searchString)
+    var xmlhttp = new XMLHttpRequest();
+        var url = "/CarDescriptions/indexAjax?searchString" + searchString;
+        xmlhttp.open("GET",url,false);
+        xmlhttp.send();
+        document.getElementById("autoSuggestContainer").style.display = "block";
+
+        //need to clear out the container for a fresh auto-suggest list
+
+        //else the auto-suggest list can keep growing and growing with additional user keyups
+
+        document.getElementById("autoSuggestContainer").innerHTML = "";
+
+
+
+        var messageObject = JSON.parse(xmlhttp.responseText); // receive the respose text
+
+
+
+        var autoSuggestions = "";
+
+
+
+        for (var i = 0; i < messageObject.length; i++) {
+
+            //HTML code generation demo
+
+            //Works together with the ".innerHTML" statement after the end of this "for" block
+
+            autoSuggestions +=
+
+                "<input type=\"button\" value=\"" + messageObject[i].Brand + "\" "
+
+                + "onclick=\"document.getElementById('searchString').value = this.value; document.getElementById('searchForm').submit();\" "
+
+                + "style =\"width: 280px\" />";
+
+            autoSuggestions += "<br />";
+
+        }
+
+        //place the generated buttons HTML code inside the display div
+
+        document.getElementById("autoSuggestContainer").innerHTML = autoSuggestions;
+
+
+}    
+</script>

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using ProjectPartB.Models;
 
 namespace ProjectPartB.Controllers
@@ -20,12 +21,35 @@ namespace ProjectPartB.Controllers
         }
 
         // GET: CarDescriptions
-        public async Task<IActionResult> Index()
+        //public async Task<IActionResult> Index()
+        //{
+        //    var fS23_Group4_ProjectContext = _context.CarDescriptions.Include(c => c.CarType);
+        //    return View(await fS23_Group4_ProjectContext.ToListAsync());
+        //}
+        public async Task<IActionResult> Index(string searchString)
         {
-            var fS23_Group4_ProjectContext = _context.CarDescriptions.Include(c => c.Availability).Include(c => c.CarType);
-            return View(await fS23_Group4_ProjectContext.ToListAsync());
+            var carDescription = from e in _context.CarDescriptions select e;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                carDescription = carDescription.Where(s => s.Brand.Contains(searchString));
+            }
+            return View(await carDescription.ToListAsync());
         }
+        public string IndexAJAX(string searchString)
 
+        {
+
+            string sql = "SELECT * FROM CarDescription WHERE Brand LIKE @b0"; // Contains An      
+
+            string wrapString = "%" + searchString + "%";
+
+            List<CarDescription> carDescriptions = _context.CarDescriptions.FromSqlRaw(sql, wrapString).ToList();
+
+            string jason = JsonConvert.SerializeObject(carDescriptions);
+
+            return jason;
+
+        }
         // GET: CarDescriptions/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -35,9 +59,8 @@ namespace ProjectPartB.Controllers
             }
 
             var carDescription = await _context.CarDescriptions
-                .Include(c => c.Availability)
                 .Include(c => c.CarType)
-                .FirstOrDefaultAsync(m => m.CarId == id);
+                .FirstOrDefaultAsync(m => m.CarDescriptionId == id);
             if (carDescription == null)
             {
                 return NotFound();
@@ -49,7 +72,6 @@ namespace ProjectPartB.Controllers
         // GET: CarDescriptions/Create
         public IActionResult Create()
         {
-            ViewData["AvailabilityId"] = new SelectList(_context.CarAvailabilities, "AvailabilityId", "AvailabilityId");
             ViewData["CarTypeId"] = new SelectList(_context.CarTypes, "CarTypeId", "CarTypeId");
             return View();
         }
@@ -59,7 +81,7 @@ namespace ProjectPartB.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CarId,CarTypeId,Make,Model,Year,Color,PricePerDay,AvailabilityId")] CarDescription carDescription)
+        public async Task<IActionResult> Create([Bind("CarDescriptionId,CarTypeId,Description,Brand,Model,Color,RatePerDay,Available")] CarDescription carDescription)
         {
             if (ModelState.IsValid)
             {
@@ -67,7 +89,6 @@ namespace ProjectPartB.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AvailabilityId"] = new SelectList(_context.CarAvailabilities, "AvailabilityId", "AvailabilityId", carDescription.AvailabilityId);
             ViewData["CarTypeId"] = new SelectList(_context.CarTypes, "CarTypeId", "CarTypeId", carDescription.CarTypeId);
             return View(carDescription);
         }
@@ -85,7 +106,6 @@ namespace ProjectPartB.Controllers
             {
                 return NotFound();
             }
-            ViewData["AvailabilityId"] = new SelectList(_context.CarAvailabilities, "AvailabilityId", "AvailabilityId", carDescription.AvailabilityId);
             ViewData["CarTypeId"] = new SelectList(_context.CarTypes, "CarTypeId", "CarTypeId", carDescription.CarTypeId);
             return View(carDescription);
         }
@@ -95,9 +115,9 @@ namespace ProjectPartB.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CarId,CarTypeId,Make,Model,Year,Color,PricePerDay,AvailabilityId")] CarDescription carDescription)
+        public async Task<IActionResult> Edit(int id, [Bind("CarDescriptionId,CarTypeId,Description,Brand,Model,Color,RatePerDay,Available")] CarDescription carDescription)
         {
-            if (id != carDescription.CarId)
+            if (id != carDescription.CarDescriptionId)
             {
                 return NotFound();
             }
@@ -111,7 +131,7 @@ namespace ProjectPartB.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CarDescriptionExists(carDescription.CarId))
+                    if (!CarDescriptionExists(carDescription.CarDescriptionId))
                     {
                         return NotFound();
                     }
@@ -122,7 +142,6 @@ namespace ProjectPartB.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AvailabilityId"] = new SelectList(_context.CarAvailabilities, "AvailabilityId", "AvailabilityId", carDescription.AvailabilityId);
             ViewData["CarTypeId"] = new SelectList(_context.CarTypes, "CarTypeId", "CarTypeId", carDescription.CarTypeId);
             return View(carDescription);
         }
@@ -136,9 +155,8 @@ namespace ProjectPartB.Controllers
             }
 
             var carDescription = await _context.CarDescriptions
-                .Include(c => c.Availability)
                 .Include(c => c.CarType)
-                .FirstOrDefaultAsync(m => m.CarId == id);
+                .FirstOrDefaultAsync(m => m.CarDescriptionId == id);
             if (carDescription == null)
             {
                 return NotFound();
@@ -168,7 +186,7 @@ namespace ProjectPartB.Controllers
 
         private bool CarDescriptionExists(int id)
         {
-          return (_context.CarDescriptions?.Any(e => e.CarId == id)).GetValueOrDefault();
+          return (_context.CarDescriptions?.Any(e => e.CarDescriptionId == id)).GetValueOrDefault();
         }
     }
 }

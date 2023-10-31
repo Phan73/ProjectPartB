@@ -2,7 +2,6 @@
 
 @{
     ViewData["Title"] = "Create";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h1>Create</h1>
@@ -18,9 +17,14 @@
                 <select asp-for="CarTypeId" class ="form-control" asp-items="ViewBag.CarTypeId"></select>
             </div>
             <div class="form-group">
-                <label asp-for="Make" class="control-label"></label>
-                <input asp-for="Make" class="form-control" />
-                <span asp-validation-for="Make" class="text-danger"></span>
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Brand" class="control-label"></label>
+                <input asp-for="Brand" class="form-control" />
+                <span asp-validation-for="Brand" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Model" class="control-label"></label>
@@ -28,23 +32,14 @@
                 <span asp-validation-for="Model" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Year" class="control-label"></label>
-                <input asp-for="Year" class="form-control" />
-                <span asp-validation-for="Year" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="Color" class="control-label"></label>
                 <input asp-for="Color" class="form-control" />
                 <span asp-validation-for="Color" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PricePerDay" class="control-label"></label>
-                <input asp-for="PricePerDay" class="form-control" />
-                <span asp-validation-for="PricePerDay" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="AvailabilityId" class="control-label"></label>
-                <select asp-for="AvailabilityId" class ="form-control" asp-items="ViewBag.AvailabilityId"></select>
+                <label asp-for="RatePerDay" class="control-label"></label>
+                <input asp-for="RatePerDay" class="form-control" />
+                <span asp-validation-for="RatePerDay" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

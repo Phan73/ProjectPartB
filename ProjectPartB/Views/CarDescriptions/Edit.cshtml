@@ -2,7 +2,6 @@
 
 @{
     ViewData["Title"] = "Edit";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h1>Edit</h1>
@@ -13,26 +12,33 @@
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="CarId" />
+            <input type="hidden" asp-for="CarDescriptionId" />
+            <div class="form-group">
+
+                <label asp-for="Brand" class="control-label"></label>
+
+                <input asp-for="Brand" class="form-control" />
+
+                <textarea asp-for="Brand" cols="20" rows="3" class="form-control"></textarea>
+
+                <span asp-validation-for="Brand" class="text-danger"></span>
+
+            </div>
             <div class="form-group">
                 <label asp-for="CarTypeId" class="control-label"></label>
                 <select asp-for="CarTypeId" class="form-control" asp-items="ViewBag.CarTypeId"></select>
                 <span asp-validation-for="CarTypeId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Make" class="control-label"></label>
-                <input asp-for="Make" class="form-control" />
-                <span asp-validation-for="Make" class="text-danger"></span>
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
             </div>
+      
             <div class="form-group">
                 <label asp-for="Model" class="control-label"></label>
                 <input asp-for="Model" class="form-control" />
                 <span asp-validation-for="Model" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Year" class="control-label"></label>
-                <input asp-for="Year" class="form-control" />
-                <span asp-validation-for="Year" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Color" class="control-label"></label>
@@ -40,14 +46,14 @@
                 <span asp-validation-for="Color" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PricePerDay" class="control-label"></label>
-                <input asp-for="PricePerDay" class="form-control" />
-                <span asp-validation-for="PricePerDay" class="text-danger"></span>
+                <label asp-for="RatePerDay" class="control-label"></label>
+                <input asp-for="RatePerDay" class="form-control" />
+                <span asp-validation-for="RatePerDay" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="AvailabilityId" class="control-label"></label>
-                <select asp-for="AvailabilityId" class="form-control" asp-items="ViewBag.AvailabilityId"></select>
-                <span asp-validation-for="AvailabilityId" class="text-danger"></span>
+                <label asp-for="Available" class="control-label"></label>
+                <input asp-for="Available" class="form-control" />
+                <span asp-validation-for="Available" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
@@ -59,7 +65,31 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.0.20/tinymce.min.js"></script>
 
+
+
+<script type="text/javascript">
+
+    tinymce.init({
+
+        selector: 'textarea',
+
+        plugins: "emoticons textcolor",
+
+        toolbar: "undo redo styleselect bold italic emoticons forecolor backcolor fontselect",
+
+        width: 600,
+
+        height: 600,
+
+        resize: 'both',
+
+        placeholder: 'Type here...',
+
+    });
+
+</script>
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

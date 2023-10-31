@@ -2,7 +2,6 @@
 
 @{
     ViewData["Title"] = "Delete";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h1>Delete</h1>
@@ -13,10 +12,16 @@
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Make)
+            @Html.DisplayNameFor(model => model.Description)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Make)
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Brand)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Brand)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Model)
@@ -25,28 +30,22 @@
             @Html.DisplayFor(model => model.Model)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Year)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Year)
-        </dd>
-        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Color)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Color)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PricePerDay)
+            @Html.DisplayNameFor(model => model.RatePerDay)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PricePerDay)
+            @Html.DisplayFor(model => model.RatePerDay)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Availability)
+            @Html.DisplayNameFor(model => model.Available)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Availability.AvailabilityId)
+            @Html.DisplayFor(model => model.Available)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.CarType)
@@ -57,7 +56,7 @@
     </dl>
     
     <form asp-action="Delete">
-        <input type="hidden" asp-for="CarId" />
+        <input type="hidden" asp-for="CarDescriptionId" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
         <a asp-action="Index">Back to List</a>
     </form>

@@ -5,14 +5,10 @@ namespace ProjectPartB.Models
 {
     public partial class CarAvailability
     {
-        public CarAvailability()
-        {
-            CarDescriptions = new HashSet<CarDescription>();
-        }
+        public int CarAvailabilityId { get; set; }
+        public int? CarDescriptionId { get; set; }
+        public bool? IsAvailable { get; set; }
 
-        public int AvailabilityId { get; set; }
-        public string Status { get; set; } = null!;
-
-        public virtual ICollection<CarDescription> CarDescriptions { get; set; }
+        public virtual CarDescription? CarDescription { get; set; }
     }
 }
