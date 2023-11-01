@@ -103,6 +103,8 @@ namespace ProjectPartB.Areas.Identity.Pages.Account
             public string Phone { get; set; }
             public string DrivingLicense { get; set; }
             public string UserID { get; set; }
+            public int Membership { get; set; } = 0;
+
         }
 
 
@@ -123,7 +125,9 @@ namespace ProjectPartB.Areas.Identity.Pages.Account
                 user.Address = Input.Address;
                 user.Phone = Input.Phone;
                 user.DrivingLicense = Input.DrivingLicense;
-                user.UserID = Input.UserID;
+                user.UserID = Guid.NewGuid().ToString();
+
+
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);

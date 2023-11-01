@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
+using ProjectPartB.Models;
 
 namespace ProjectPartB.Areas.Identity.Data;
 
@@ -14,6 +15,9 @@ public class WebUser : IdentityUser
     public string Phone { get; set; }
     public string DrivingLicense { get; set; }
     public string UserID { get; set; }
+    public int? MembershipId { get; set; }
+
+    public virtual Membership Membership { get; set; }
 }
 
 

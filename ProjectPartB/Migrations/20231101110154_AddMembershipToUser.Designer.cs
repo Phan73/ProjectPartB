@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjectPartB.Areas.Identity.Data;
 
@@ -11,9 +12,10 @@ using ProjectPartB.Areas.Identity.Data;
 namespace ProjectPartB.Migrations
 {
     [DbContext(typeof(CustomIdentityContext))]
-    partial class CustomIdentityContextModelSnapshot : ModelSnapshot
+    [Migration("20231101110154_AddMembershipToUser")]
+    partial class AddMembershipToUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,21 +23,6 @@ namespace ProjectPartB.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("AspNetRoleAspNetUser", b =>
-                {
-                    b.Property<string>("RolesId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("UsersId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("RolesId", "UsersId");
-
-                    b.HasIndex("UsersId");
-
-                    b.ToTable("AspNetRoleAspNetUser");
-                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -66,29 +53,29 @@ namespace ProjectPartB.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "9f6ef78f-994a-416c-a608-746b0324000c",
-                            ConcurrencyStamp = "ee9c6b07-70b2-4092-860a-07c6286e5a67",
+                            Id = "989a86f7-1fe4-4e2f-b94e-bdbf7d4f8fc8",
+                            ConcurrencyStamp = "4166e685-c284-467f-86c3-22ce9698d38f",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
-                            Id = "c8af0ed2-2ad2-4d78-b0b2-c036a94d1978",
-                            ConcurrencyStamp = "d5b86897-a549-42ab-a258-8e11e1e5cbb9",
+                            Id = "d90d7613-5937-4465-a91a-8ff48bb550e2",
+                            ConcurrencyStamp = "e18fa8eb-0c05-4e3c-9520-16a8cbf4bbe2",
                             Name = "Manager",
                             NormalizedName = "MANAGER"
                         },
                         new
                         {
-                            Id = "11ae9a2a-54d1-41d4-8d81-797aef99972e",
-                            ConcurrencyStamp = "139f3e3d-608a-40f3-b5c9-c79b303a0cc7",
+                            Id = "70c17622-d13a-4bf2-9622-28d82537f522",
+                            ConcurrencyStamp = "ad1d12a0-a638-4e40-904f-cac7ba239a31",
                             Name = "Editor",
                             NormalizedName = "EDITOR"
                         },
                         new
                         {
-                            Id = "10f1c6e4-b401-4101-9f9c-e0124c0ba90f",
-                            ConcurrencyStamp = "3b801757-eca9-455f-9697-2a5eddb55bba",
+                            Id = "74be8d99-9966-4bb1-9165-ed92b0aa7d89",
+                            ConcurrencyStamp = "428336fe-c35f-4f19-b76d-d00ee7daddd0",
                             Name = "Visitor",
                             NormalizedName = "VISITOR"
                         });
@@ -185,23 +172,23 @@ namespace ProjectPartB.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "e1be6644-2bc1-4a4b-8afc-fe650ad2a93a",
-                            RoleId = "9f6ef78f-994a-416c-a608-746b0324000c"
+                            UserId = "68ff6497-cbc7-4827-a578-a4fc3a1bfa83",
+                            RoleId = "989a86f7-1fe4-4e2f-b94e-bdbf7d4f8fc8"
                         },
                         new
                         {
-                            UserId = "94e7d00c-2bf4-45b6-bdc8-5e595d7f8331",
-                            RoleId = "c8af0ed2-2ad2-4d78-b0b2-c036a94d1978"
+                            UserId = "f1eab00f-2253-4ff4-9e7e-c5da6b6e7bf9",
+                            RoleId = "d90d7613-5937-4465-a91a-8ff48bb550e2"
                         },
                         new
                         {
-                            UserId = "5823cfbb-c438-414d-af7f-0f7083e40f2b",
-                            RoleId = "11ae9a2a-54d1-41d4-8d81-797aef99972e"
+                            UserId = "e941684a-6856-4f3b-af8d-0403489b6842",
+                            RoleId = "70c17622-d13a-4bf2-9622-28d82537f522"
                         },
                         new
                         {
-                            UserId = "3f0acec7-9b31-4c76-851e-cb5aa467685a",
-                            RoleId = "10f1c6e4-b401-4101-9f9c-e0124c0ba90f"
+                            UserId = "815beac9-ab07-4879-8387-65dd1b56ce46",
+                            RoleId = "74be8d99-9966-4bb1-9165-ed92b0aa7d89"
                         });
                 });
 
@@ -263,9 +250,6 @@ namespace ProjectPartB.Migrations
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<int?>("MembershipId")
-                        .HasColumnType("int");
-
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -295,19 +279,13 @@ namespace ProjectPartB.Migrations
 
                     b.Property<string>("UserID")
                         .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(max)")
-                        .HasDefaultValueSql("NEWID()");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("MembershipId")
-                        .IsUnique()
-                        .HasFilter("[MembershipId] IS NOT NULL");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -322,10 +300,10 @@ namespace ProjectPartB.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "e1be6644-2bc1-4a4b-8afc-fe650ad2a93a",
+                            Id = "68ff6497-cbc7-4827-a578-a4fc3a1bfa83",
                             AccessFailedCount = 0,
                             Address = "admin",
-                            ConcurrencyStamp = "3c97b616-1d09-4bcf-b921-896974b37fea",
+                            ConcurrencyStamp = "113b672b-ce82-45a2-b853-40744af23969",
                             DrivingLicense = "fads213",
                             Email = "administrator@example.com",
                             EmailConfirmed = true,
@@ -333,19 +311,20 @@ namespace ProjectPartB.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMINISTRATOR@EXAMPLE.COM",
                             NormalizedUserName = "ADMINISTRATOR@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJDQ6INFaKUXNUPSvdzDvXwf3AWOD64qG9IrC0UQlKxBs73zaAZqxJhvViPopBLsdw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEAefTHdS87V+pVhvc0EO7rNPphOTQZmdPft41KYBXriTnLur/QoAd2g1MZ93/Cmh/Q==",
                             Phone = "0210888888",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "af7119b2-23b4-48bf-9fc2-830e201a43fd",
+                            SecurityStamp = "c143f0e5-4c2a-42d3-ba1e-b8da48a7540b",
                             TwoFactorEnabled = false,
+                            UserID = "1",
                             UserName = "administrator@example.com"
                         },
                         new
                         {
-                            Id = "94e7d00c-2bf4-45b6-bdc8-5e595d7f8331",
+                            Id = "f1eab00f-2253-4ff4-9e7e-c5da6b6e7bf9",
                             AccessFailedCount = 0,
                             Address = "manager",
-                            ConcurrencyStamp = "b8518ff4-a76d-4f25-8138-08f7c0eba9f5",
+                            ConcurrencyStamp = "c8cb0fd3-9d88-4b26-814b-091504572c8d",
                             DrivingLicense = "fads213",
                             Email = "manager@example.com",
                             EmailConfirmed = true,
@@ -353,19 +332,20 @@ namespace ProjectPartB.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "MANAGER@EXAMPLE.COM",
                             NormalizedUserName = "MANAGER@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEOI+htDP90ZrLmhNjYdOQuzGGAVknoJFGmEMc/2QqmimaZTikx/SMGtThR838bvRfw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJYvoU5zrluY2/K5PkQ30xUvLHpqMnnbASh0guMR8p4IrNEUHaBjjIFxGZXSQqdYGQ==",
                             Phone = "0210888888",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "71bce4a5-71dd-4311-a4f5-e8dcd402ed71",
+                            SecurityStamp = "53217a39-cde8-4a6c-b7c3-aae4aa344a6d",
                             TwoFactorEnabled = false,
+                            UserID = "2",
                             UserName = "manager@example.com"
                         },
                         new
                         {
-                            Id = "5823cfbb-c438-414d-af7f-0f7083e40f2b",
+                            Id = "e941684a-6856-4f3b-af8d-0403489b6842",
                             AccessFailedCount = 0,
                             Address = "editor",
-                            ConcurrencyStamp = "33a341af-a9ce-451c-99e8-f053fb774cb2",
+                            ConcurrencyStamp = "13ff88cd-f6be-4d74-801c-2113a3c088f4",
                             DrivingLicense = "fads213",
                             Email = "editor@example.com",
                             EmailConfirmed = true,
@@ -373,19 +353,20 @@ namespace ProjectPartB.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "EDITOR@EXAMPLE.COM",
                             NormalizedUserName = "EDITOR@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAELQYpNoCNt+G23Ym/YaJE++wHL9o9hinmJU49d9Qyuu34SlhVzGBPKCmgZsiD4mjlA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENMJLNWele+3jw8hLvC2OqRQZZkhMTWnvKiHLOJxD1xp3xPapdyD/ijWhTqW8deavQ==",
                             Phone = "0210888888",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "926483de-f5b7-4a9e-8056-320d852ef902",
+                            SecurityStamp = "8b3f50d5-9783-4e4e-8441-a3955ea23f2d",
                             TwoFactorEnabled = false,
+                            UserID = "3",
                             UserName = "editor@example.com"
                         },
                         new
                         {
-                            Id = "3f0acec7-9b31-4c76-851e-cb5aa467685a",
+                            Id = "815beac9-ab07-4879-8387-65dd1b56ce46",
                             AccessFailedCount = 0,
                             Address = "visitor",
-                            ConcurrencyStamp = "269d6686-f447-4ec8-a8ef-beeb52b45132",
+                            ConcurrencyStamp = "0c4936d4-6890-490e-9edf-4244e1ecdb34",
                             DrivingLicense = "fads213",
                             Email = "visitor@example.com",
                             EmailConfirmed = true,
@@ -393,248 +374,14 @@ namespace ProjectPartB.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "VISITOR@EXAMPLE.COM",
                             NormalizedUserName = "VISITOR@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAECnJLgT9WmgCUBz0gmbPB/7/MZ3sUTcAwv3KUfkI5cEdkNEzkD56JJb7/BYlUnZkXw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEEd63MVE9UDdxgDVrH4TBA3E+TEODgqWKmrYquv6OMQEFtRCsFkglqQ+DelsdI0bQQ==",
                             Phone = "0210888888",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "29edcb4a-408c-46b1-b832-6356c2715057",
+                            SecurityStamp = "ee63e1b5-9f84-4e27-81c6-3b7e4d4dacde",
                             TwoFactorEnabled = false,
+                            UserID = "4",
                             UserName = "visitor@example.com"
                         });
-                });
-
-            modelBuilder.Entity("ProjectPartB.Models.AspNetRole", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NormalizedName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("AspNetRole");
-                });
-
-            modelBuilder.Entity("ProjectPartB.Models.AspNetRoleClaim", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("ClaimType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ClaimValue")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RoleId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("AspNetRoleClaim");
-                });
-
-            modelBuilder.Entity("ProjectPartB.Models.AspNetUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DrivingLicense")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("FullName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<int?>("MembershipId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Phone")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MembershipId");
-
-                    b.ToTable("AspNetUser");
-                });
-
-            modelBuilder.Entity("ProjectPartB.Models.AspNetUserClaim", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("ClaimType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ClaimValue")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("AspNetUserClaim");
-                });
-
-            modelBuilder.Entity("ProjectPartB.Models.AspNetUserLogin", b =>
-                {
-                    b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ProviderDisplayName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ProviderKey")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("LoginProvider");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("AspNetUserLogin");
-                });
-
-            modelBuilder.Entity("ProjectPartB.Models.AspNetUserToken", b =>
-                {
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("LoginProvider")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserId1")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Value")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("UserId");
-
-                    b.HasIndex("UserId1");
-
-                    b.ToTable("AspNetUserToken");
-                });
-
-            modelBuilder.Entity("ProjectPartB.Models.Membership", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("Price")
-                        .HasColumnType("float");
-
-                    b.Property<string>("UserID")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Memberships");
-                });
-
-            modelBuilder.Entity("AspNetRoleAspNetUser", b =>
-                {
-                    b.HasOne("ProjectPartB.Models.AspNetRole", null)
-                        .WithMany()
-                        .HasForeignKey("RolesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ProjectPartB.Models.AspNetUser", null)
-                        .WithMany()
-                        .HasForeignKey("UsersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -686,90 +433,6 @@ namespace ProjectPartB.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("ProjectPartB.Areas.Identity.Data.WebUser", b =>
-                {
-                    b.HasOne("ProjectPartB.Models.Membership", "Membership")
-                        .WithOne("User")
-                        .HasForeignKey("ProjectPartB.Areas.Identity.Data.WebUser", "MembershipId");
-
-                    b.Navigation("Membership");
-                });
-
-            modelBuilder.Entity("ProjectPartB.Models.AspNetRoleClaim", b =>
-                {
-                    b.HasOne("ProjectPartB.Models.AspNetRole", "Role")
-                        .WithMany("AspNetRoleClaims")
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Role");
-                });
-
-            modelBuilder.Entity("ProjectPartB.Models.AspNetUser", b =>
-                {
-                    b.HasOne("ProjectPartB.Models.Membership", "Membership")
-                        .WithMany("Users")
-                        .HasForeignKey("MembershipId");
-
-                    b.Navigation("Membership");
-                });
-
-            modelBuilder.Entity("ProjectPartB.Models.AspNetUserClaim", b =>
-                {
-                    b.HasOne("ProjectPartB.Models.AspNetUser", "User")
-                        .WithMany("AspNetUserClaims")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("ProjectPartB.Models.AspNetUserLogin", b =>
-                {
-                    b.HasOne("ProjectPartB.Models.AspNetUser", "User")
-                        .WithMany("AspNetUserLogins")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("ProjectPartB.Models.AspNetUserToken", b =>
-                {
-                    b.HasOne("ProjectPartB.Models.AspNetUser", "User")
-                        .WithMany("AspNetUserTokens")
-                        .HasForeignKey("UserId1")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("ProjectPartB.Models.AspNetRole", b =>
-                {
-                    b.Navigation("AspNetRoleClaims");
-                });
-
-            modelBuilder.Entity("ProjectPartB.Models.AspNetUser", b =>
-                {
-                    b.Navigation("AspNetUserClaims");
-
-                    b.Navigation("AspNetUserLogins");
-
-                    b.Navigation("AspNetUserTokens");
-                });
-
-            modelBuilder.Entity("ProjectPartB.Models.Membership", b =>
-                {
-                    b.Navigation("User")
-                        .IsRequired();
-
-                    b.Navigation("Users");
                 });
 #pragma warning restore 612, 618
         }
