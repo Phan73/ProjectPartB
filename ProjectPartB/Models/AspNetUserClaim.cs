@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace ProjectPartB.Models
 {
     public partial class AspNetUserClaim
     {
+        [Key]
         public int Id { get; set; }
         public string UserId { get; set; } = null!;
         public string? ClaimType { get; set; }

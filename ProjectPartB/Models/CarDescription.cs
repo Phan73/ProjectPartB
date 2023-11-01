@@ -17,9 +17,10 @@ namespace ProjectPartB.Models
         public string? Brand { get; set; }
         public string? Model { get; set; }
         public string? Color { get; set; }
-        public decimal? RatePerDay { get; set; }
+        public decimal RatePerDay { get; set; }
         public bool? Available { get; set; }
-
+        public string? Image { get; set; }
+        public string CarTypeName { get; set; }
         public virtual CarType? CarType { get; set; }
         public virtual ICollection<CarAvailability> CarAvailabilities { get; set; }
         public virtual ICollection<Rental> Rentals { get; set; }

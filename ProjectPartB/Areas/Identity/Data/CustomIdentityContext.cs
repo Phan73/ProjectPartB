@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using ProjectPartB.Areas.Identity.Data;
+using ProjectPartB.Models;
 
 namespace ProjectPartB.Areas.Identity.Data;
 
@@ -11,16 +12,13 @@ public class CustomIdentityContext : IdentityDbContext<WebUser>
         : base(options)
     {
     }
+    public DbSet<Membership> Memberships { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
-        // Customize the ASP.NET Identity model and override the defaults if needed.
-        // For example, you can rename the ASP.NET Identity table names and more.
-        // Add your customizations after calling base.OnModelCreating(builder);
+       
         base.OnModelCreating(builder);
-        //this.SeedUsers(builder);
-        //this.SeedRoles(builder);
-        //this.SeedUserRoles(builder);
+      
         // Create ROLES
         List<IdentityRole> roles = new List<IdentityRole>() {
           new IdentityRole { Name = "Administrator", NormalizedName = "ADMINISTRATOR" },
@@ -29,12 +27,18 @@ public class CustomIdentityContext : IdentityDbContext<WebUser>
           new IdentityRole { Name = "Visitor", NormalizedName = "VISITOR" }
           };
         builder.Entity<IdentityRole>().HasData(roles);
-
+        builder.Entity<WebUser>()
+        .HasOne(u => u.Membership)                                    
+        .WithOne(m => m.User)
+        .HasForeignKey<WebUser>(u => u.MembershipId);
+        builder.Entity<WebUser>()
+    .Property(u => u.UserId)
+    .HasDefaultValueSql("NEWID()");
         // Create USERS
         var passwordHasher = new PasswordHasher<WebUser>();
         List<WebUser> users = new List<WebUser>() {
              new WebUser {
-                 UserID="1",
+                 
                  FullName="Admin",
                  Address="admin",
                  Phone="0210888888",
@@ -47,8 +51,8 @@ public class CustomIdentityContext : IdentityDbContext<WebUser>
              },
              new WebUser {
 
-                 UserID="2",
-                 FullName="manager",
+                 
+                 FullName="manager",                         
                  Address="manager",
                  Phone="0210888888",
                  DrivingLicense="fads213",
@@ -59,7 +63,7 @@ public class CustomIdentityContext : IdentityDbContext<WebUser>
                  EmailConfirmed=true
              },
              new WebUser {
-                 UserID="3",
+                 
                  FullName="editor",
                  Address="editor",
                  Phone="0210888888",
@@ -71,7 +75,7 @@ public class CustomIdentityContext : IdentityDbContext<WebUser>
                  EmailConfirmed=true
              },
              new WebUser {
-                 UserID="4",
+                 
                  FullName="visitor",
                  Address="visitor",
                  Phone="0210888888",
