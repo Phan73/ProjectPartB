@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using ProjectPartB.Areas.Identity.Data;
 
 namespace ProjectPartB.Models
 {
@@ -213,7 +214,10 @@ namespace ProjectPartB.Models
 
                 entity.Property(e => e.Description).HasMaxLength(50);
             });
-
+            modelBuilder.Entity<WebUser>()
+      .HasOne(u => u.Membership) // navigation property in WebUser class
+      .WithOne(m => m.User)      // navigation property in Membership class
+      .HasForeignKey<Membership>(m => m.UserId);
             OnModelCreatingPartial(modelBuilder);
         }
 

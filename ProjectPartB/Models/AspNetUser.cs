@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace ProjectPartB.Models
 {
@@ -12,7 +13,7 @@ namespace ProjectPartB.Models
             AspNetUserTokens = new HashSet<AspNetUserToken>();
             Roles = new HashSet<AspNetRole>();
         }
-
+     
         public string Id { get; set; } = null!;
         public string FullName { get; set; } = null!;
         public string Address { get; set; } = null!;
@@ -33,6 +34,8 @@ namespace ProjectPartB.Models
         public DateTimeOffset? LockoutEnd { get; set; }
         public bool LockoutEnabled { get; set; }
         public int AccessFailedCount { get; set; }
+        public virtual Membership Membership { get; set; }
+        public int? MembershipId { get; set; }
 
         public virtual ICollection<AspNetUserClaim> AspNetUserClaims { get; set; }
         public virtual ICollection<AspNetUserLogin> AspNetUserLogins { get; set; }
