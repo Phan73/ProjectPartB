@@ -125,7 +125,7 @@ namespace ProjectPartB.Areas.Identity.Pages.Account
                 user.Address = Input.Address;
                 user.Phone = Input.Phone;
                 user.DrivingLicense = Input.DrivingLicense;
-               
+
 
 
 

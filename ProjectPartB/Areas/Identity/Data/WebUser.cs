@@ -15,10 +15,13 @@ public class WebUser : IdentityUser
     public string Address { get; set; }
     public string Phone { get; set; }
     public string DrivingLicense { get; set; }
+
    
     public int? MembershipId { get; set; }
     public string UserId { get; set; }
     public virtual AspNetUser AspNetUser { get; set; }
+
+
     public virtual Membership Membership { get; set; }
 }
 

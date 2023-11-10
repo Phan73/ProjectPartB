@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjectPartB.Areas.Identity.Data;
 
@@ -11,9 +12,10 @@ using ProjectPartB.Areas.Identity.Data;
 namespace ProjectPartB.Migrations
 {
     [DbContext(typeof(CustomIdentityContext))]
-    partial class CustomIdentityContextModelSnapshot : ModelSnapshot
+    [Migration("20231101112745_AddMembershipToIdentity")]
+    partial class AddMembershipToIdentity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -66,36 +68,29 @@ namespace ProjectPartB.Migrations
                     b.HasData(
                         new
                         {
-
-                            Id = "426b436a-1683-4720-8474-db29888a1739",
-                            ConcurrencyStamp = "05e14f33-0547-4528-a8c6-1a25c65a9309",
-
+                            Id = "9f6ef78f-994a-416c-a608-746b0324000c",
+                            ConcurrencyStamp = "ee9c6b07-70b2-4092-860a-07c6286e5a67",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
-
-                            Id = "304274c5-9ef7-4fa1-9e1e-bef7dd8882ce",
-                            ConcurrencyStamp = "c291da70-93c9-4150-a726-d00584705495",
+                            Id = "c8af0ed2-2ad2-4d78-b0b2-c036a94d1978",
+                            ConcurrencyStamp = "d5b86897-a549-42ab-a258-8e11e1e5cbb9",
                             Name = "Manager",
                             NormalizedName = "MANAGER"
                         },
                         new
                         {
-
-                            Id = "a5ce0f49-f3a3-40dd-acd7-494d2da6d5c5",
-                            ConcurrencyStamp = "edd04175-39d2-473c-97dc-13979ce06024",
-
+                            Id = "11ae9a2a-54d1-41d4-8d81-797aef99972e",
+                            ConcurrencyStamp = "139f3e3d-608a-40f3-b5c9-c79b303a0cc7",
                             Name = "Editor",
                             NormalizedName = "EDITOR"
                         },
                         new
                         {
-
-                            Id = "cf45be01-35d3-46bd-9e23-d986dc9d323e",
-                            ConcurrencyStamp = "e30e3743-a8b4-44c8-99d5-d689ae99a270",
-
+                            Id = "10f1c6e4-b401-4101-9f9c-e0124c0ba90f",
+                            ConcurrencyStamp = "3b801757-eca9-455f-9697-2a5eddb55bba",
                             Name = "Visitor",
                             NormalizedName = "VISITOR"
                         });
@@ -192,25 +187,23 @@ namespace ProjectPartB.Migrations
                     b.HasData(
                         new
                         {
-
-                            UserId = "d779d796-0cc3-4c88-ba4f-e0999c80786b",
-                            RoleId = "426b436a-1683-4720-8474-db29888a1739"
+                            UserId = "e1be6644-2bc1-4a4b-8afc-fe650ad2a93a",
+                            RoleId = "9f6ef78f-994a-416c-a608-746b0324000c"
                         },
                         new
                         {
-                            UserId = "97eb6619-6971-4d4e-a1b2-8aef1b7485b0",
-                            RoleId = "304274c5-9ef7-4fa1-9e1e-bef7dd8882ce"
+                            UserId = "94e7d00c-2bf4-45b6-bdc8-5e595d7f8331",
+                            RoleId = "c8af0ed2-2ad2-4d78-b0b2-c036a94d1978"
                         },
                         new
                         {
-                            UserId = "a4cae09d-7b3f-47eb-826e-d99a809797c9",
-                            RoleId = "a5ce0f49-f3a3-40dd-acd7-494d2da6d5c5"
+                            UserId = "5823cfbb-c438-414d-af7f-0f7083e40f2b",
+                            RoleId = "11ae9a2a-54d1-41d4-8d81-797aef99972e"
                         },
                         new
                         {
-                            UserId = "561f3c01-458a-402b-90f5-23d857b74060",
-                            RoleId = "cf45be01-35d3-46bd-9e23-d986dc9d323e"
-
+                            UserId = "3f0acec7-9b31-4c76-851e-cb5aa467685a",
+                            RoleId = "10f1c6e4-b401-4101-9f9c-e0124c0ba90f"
                         });
                 });
 
@@ -246,9 +239,6 @@ namespace ProjectPartB.Migrations
                     b.Property<string>("Address")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("AspNetUserId")
-                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -305,7 +295,7 @@ namespace ProjectPartB.Migrations
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
 
-                    b.Property<string>("UserId")
+                    b.Property<string>("UserID")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(max)")
@@ -316,10 +306,6 @@ namespace ProjectPartB.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
-
-
-                    b.HasIndex("AspNetUserId");
-
 
                     b.HasIndex("MembershipId")
                         .IsUnique()
@@ -338,12 +324,10 @@ namespace ProjectPartB.Migrations
                     b.HasData(
                         new
                         {
-
-                            Id = "d779d796-0cc3-4c88-ba4f-e0999c80786b",
+                            Id = "e1be6644-2bc1-4a4b-8afc-fe650ad2a93a",
                             AccessFailedCount = 0,
                             Address = "admin",
-                            ConcurrencyStamp = "71a9d72a-3fdf-47c2-9202-d75238958bfd",
-
+                            ConcurrencyStamp = "3c97b616-1d09-4bcf-b921-896974b37fea",
                             DrivingLicense = "fads213",
                             Email = "administrator@example.com",
                             EmailConfirmed = true,
@@ -351,23 +335,19 @@ namespace ProjectPartB.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMINISTRATOR@EXAMPLE.COM",
                             NormalizedUserName = "ADMINISTRATOR@EXAMPLE.COM",
-
-                            PasswordHash = "AQAAAAEAACcQAAAAEPXJKfzgvE2pq+FPpFx9axDLX2CPB070Bi5wt9NxEpqz/7Ti08f4qMNxf6w/HtRFEA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJDQ6INFaKUXNUPSvdzDvXwf3AWOD64qG9IrC0UQlKxBs73zaAZqxJhvViPopBLsdw==",
                             Phone = "0210888888",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "b4ecf4b4-1c04-46d8-92ae-72b6f5d2749f",
-
+                            SecurityStamp = "af7119b2-23b4-48bf-9fc2-830e201a43fd",
                             TwoFactorEnabled = false,
                             UserName = "administrator@example.com"
                         },
                         new
                         {
-
-                            Id = "97eb6619-6971-4d4e-a1b2-8aef1b7485b0",
+                            Id = "94e7d00c-2bf4-45b6-bdc8-5e595d7f8331",
                             AccessFailedCount = 0,
                             Address = "manager",
-                            ConcurrencyStamp = "89745bb1-7a9a-4829-8a88-3eb8930af3d8",
-
+                            ConcurrencyStamp = "b8518ff4-a76d-4f25-8138-08f7c0eba9f5",
                             DrivingLicense = "fads213",
                             Email = "manager@example.com",
                             EmailConfirmed = true,
@@ -375,23 +355,19 @@ namespace ProjectPartB.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "MANAGER@EXAMPLE.COM",
                             NormalizedUserName = "MANAGER@EXAMPLE.COM",
-
-                            PasswordHash = "AQAAAAEAACcQAAAAEJJGYpGdkP7O8+a0yB5ETBdnZKE6bYMNJkfXukGcTgWokQN5UqAb7T339hP5Pz0Dxg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEOI+htDP90ZrLmhNjYdOQuzGGAVknoJFGmEMc/2QqmimaZTikx/SMGtThR838bvRfw==",
                             Phone = "0210888888",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "b5b3a213-aefd-4665-8da2-8db53bf27b78",
-
+                            SecurityStamp = "71bce4a5-71dd-4311-a4f5-e8dcd402ed71",
                             TwoFactorEnabled = false,
                             UserName = "manager@example.com"
                         },
                         new
                         {
-
-                            Id = "a4cae09d-7b3f-47eb-826e-d99a809797c9",
+                            Id = "5823cfbb-c438-414d-af7f-0f7083e40f2b",
                             AccessFailedCount = 0,
                             Address = "editor",
-                            ConcurrencyStamp = "7338b100-4512-4f1c-bfb1-26829b62f480",
-
+                            ConcurrencyStamp = "33a341af-a9ce-451c-99e8-f053fb774cb2",
                             DrivingLicense = "fads213",
                             Email = "editor@example.com",
                             EmailConfirmed = true,
@@ -399,23 +375,19 @@ namespace ProjectPartB.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "EDITOR@EXAMPLE.COM",
                             NormalizedUserName = "EDITOR@EXAMPLE.COM",
-
-                            PasswordHash = "AQAAAAEAACcQAAAAEDbO2n+zMzK6WqH1B6OAnls/N8kYAQkB9gvzUEScOirHI5zRCrbwv8GQKeXTmlgE+w==",
+                            PasswordHash = "AQAAAAEAACcQAAAAELQYpNoCNt+G23Ym/YaJE++wHL9o9hinmJU49d9Qyuu34SlhVzGBPKCmgZsiD4mjlA==",
                             Phone = "0210888888",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "16867883-9c06-4ab9-9699-a7b0271e4022",
-
+                            SecurityStamp = "926483de-f5b7-4a9e-8056-320d852ef902",
                             TwoFactorEnabled = false,
                             UserName = "editor@example.com"
                         },
                         new
                         {
-
-                            Id = "561f3c01-458a-402b-90f5-23d857b74060",
+                            Id = "3f0acec7-9b31-4c76-851e-cb5aa467685a",
                             AccessFailedCount = 0,
                             Address = "visitor",
-                            ConcurrencyStamp = "6e9d007e-6f40-46ae-a2ee-e5e4e3d4419e",
-
+                            ConcurrencyStamp = "269d6686-f447-4ec8-a8ef-beeb52b45132",
                             DrivingLicense = "fads213",
                             Email = "visitor@example.com",
                             EmailConfirmed = true,
@@ -423,12 +395,10 @@ namespace ProjectPartB.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "VISITOR@EXAMPLE.COM",
                             NormalizedUserName = "VISITOR@EXAMPLE.COM",
-
-                            PasswordHash = "AQAAAAEAACcQAAAAEOf+nut32rwM1qsxi9hwme82XAd8ie4AZmnQJgdBQZPi5lxPK6tPwC3NQAy2HMulsA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAECnJLgT9WmgCUBz0gmbPB/7/MZ3sUTcAwv3KUfkI5cEdkNEzkD56JJb7/BYlUnZkXw==",
                             Phone = "0210888888",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "ec7881d8-e48f-4bf9-b775-9e3a70bd8efb",
-
+                            SecurityStamp = "29edcb4a-408c-46b1-b832-6356c2715057",
                             TwoFactorEnabled = false,
                             UserName = "visitor@example.com"
                         });
@@ -645,9 +615,7 @@ namespace ProjectPartB.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
-
-                    b.Property<string>("UserId")
-
+                    b.Property<string>("UserID")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -724,18 +692,9 @@ namespace ProjectPartB.Migrations
 
             modelBuilder.Entity("ProjectPartB.Areas.Identity.Data.WebUser", b =>
                 {
-
-                    b.HasOne("ProjectPartB.Models.AspNetUser", "AspNetUser")
-                        .WithMany()
-                        .HasForeignKey("AspNetUserId");
-
-
                     b.HasOne("ProjectPartB.Models.Membership", "Membership")
                         .WithOne("User")
                         .HasForeignKey("ProjectPartB.Areas.Identity.Data.WebUser", "MembershipId");
-
-                    b.Navigation("AspNetUser");
-
 
                     b.Navigation("Membership");
                 });

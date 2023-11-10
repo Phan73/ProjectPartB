@@ -28,11 +28,7 @@ public class CustomIdentityContext : IdentityDbContext<WebUser>
           };
         builder.Entity<IdentityRole>().HasData(roles);
         builder.Entity<WebUser>()
-        .HasOne(u => u.Membership)                                    
-        .WithOne(m => m.User)
-        .HasForeignKey<WebUser>(u => u.MembershipId);
-        builder.Entity<WebUser>()
-    .Property(u => u.UserId)
+
     .HasDefaultValueSql("NEWID()");
         // Create USERS
         var passwordHasher = new PasswordHasher<WebUser>();
@@ -52,7 +48,9 @@ public class CustomIdentityContext : IdentityDbContext<WebUser>
              new WebUser {
 
                  
+
                  FullName="manager",                         
+
                  Address="manager",
                  Phone="0210888888",
                  DrivingLicense="fads213",
