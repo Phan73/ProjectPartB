@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -14,13 +13,15 @@ namespace ProjectPartB.Controllers
     public class CarDescriptionsController : Controller
     {
         private readonly FS23_Group4_ProjectContext _context;
+        private readonly IWebHostEnvironment _webHostEnviroment;
 
         public CarDescriptionsController(FS23_Group4_ProjectContext context)
         {
             _context = context;
+            _webHostEnviroment = _webHostEnviroment;
         }
 
-        // GET: CarDescriptions
+        //// GET: CarDescriptions
         //public async Task<IActionResult> Index()
         //{
         //    var fS23_Group4_ProjectContext = _context.CarDescriptions.Include(c => c.CarType);
@@ -29,7 +30,7 @@ namespace ProjectPartB.Controllers
         public async Task<IActionResult> Index(string searchString)
         {
             var carDescription = from e in _context.CarDescriptions select e;
-            if (!String.IsNullOrEmpty(searchString))
+            if (!string.IsNullOrEmpty(searchString))
             {
                 carDescription = carDescription.Where(s => s.Brand.Contains(searchString));
             }
@@ -39,7 +40,7 @@ namespace ProjectPartB.Controllers
 
         {
 
-            string sql = "SELECT * FROM CarDescription WHERE Brand LIKE @b0"; // Contains An      
+            string sql = "SELECT * FROM CarDescription WHERE Brand LIKE @p0"; 
 
             string wrapString = "%" + searchString + "%";
 
@@ -50,6 +51,7 @@ namespace ProjectPartB.Controllers
             return jason;
 
         }
+
         // GET: CarDescriptions/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -68,11 +70,11 @@ namespace ProjectPartB.Controllers
 
             return View(carDescription);
         }
-        [Authorize(Roles ="Administrator")]
+
         // GET: CarDescriptions/Create
         public IActionResult Create()
         {
-            ViewData["CarTypeId"] = new SelectList(_context.CarTypes, "CarTypeId", "CarTypeId");
+            ViewData["CarTypeId"] = new SelectList(_context.CarTypes, "Id", "Id");
             return View();
         }
 
@@ -81,7 +83,7 @@ namespace ProjectPartB.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CarDescriptionId,CarTypeId,Description,Brand,Model,Color,RatePerDay,Available")] CarDescription carDescription)
+        public async Task<IActionResult> Create([Bind("CarDescriptionId,CarTypeId,Description,Brand,Model,Color,RatePerDay,Available,Image,CarTypeName")] CarDescription carDescription)
         {
             if (ModelState.IsValid)
             {
@@ -89,7 +91,7 @@ namespace ProjectPartB.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CarTypeId"] = new SelectList(_context.CarTypes, "CarTypeId", "CarTypeId", carDescription.CarTypeId);
+            ViewData["CarTypeId"] = new SelectList(_context.CarTypes, "Id", "Id", carDescription.CarTypeId);
             return View(carDescription);
         }
 
@@ -106,7 +108,7 @@ namespace ProjectPartB.Controllers
             {
                 return NotFound();
             }
-            ViewData["CarTypeId"] = new SelectList(_context.CarTypes, "CarTypeId", "CarTypeId", carDescription.CarTypeId);
+            ViewData["CarTypeId"] = new SelectList(_context.CarTypes, "Id", "Id", carDescription.CarTypeId);
             return View(carDescription);
         }
 
@@ -115,7 +117,7 @@ namespace ProjectPartB.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CarDescriptionId,CarTypeId,Description,Brand,Model,Color,RatePerDay,Available")] CarDescription carDescription)
+        public async Task<IActionResult> Edit(int id, [Bind("CarDescriptionId,CarTypeId,Description,Brand,Model,Color,RatePerDay,Available,Image,CarTypeName")] CarDescription carDescription, IFormFile Image)
         {
             if (id != carDescription.CarDescriptionId)
             {
@@ -124,25 +126,23 @@ namespace ProjectPartB.Controllers
 
             if (ModelState.IsValid)
             {
-                try
+                if(Image == null)
                 {
-                    _context.Update(carDescription);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!CarDescriptionExists(carDescription.CarDescriptionId))
+                    string upkiadFolder = Path.Combine(_webHostEnviroment.WebRootPath, "Uploads");
+                    string uniqueName = Guid.NewGuid().ToString()+"_"+ Image.FileName;
+                    string filePath = Path.Combine(upkiadFolder,uniqueName);
+                    using (var fileStream= new FileStream(filePath, FileMode.Create))
                     {
-                        return NotFound();
+                        await Image.CopyToAsync(fileStream);
+
                     }
-                    else
-                    {
-                        throw;
-                    }
+                    carDescription.Image = uniqueName;
                 }
+                _context.Add(carDescription);
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CarTypeId"] = new SelectList(_context.CarTypes, "CarTypeId", "CarTypeId", carDescription.CarTypeId);
+            ViewData["CarTypeName"] = new SelectList(_context.CarTypes, "CarTypeName", "CarTypeName", carDescription.CarTypeName);
             return View(carDescription);
         }
 

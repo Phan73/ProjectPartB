@@ -10,22 +10,21 @@
     <a asp-action="Create">Create New</a>
 </p>
 <form id="searchForm" action="/CarDescriptions/index" method="get">
-    <p>Search Car Description</p> 
+    <p>Search Car Description</p>
     <input type="text" id="searchString" name="searchString" style="width:190px" autocomplete="off" onkeyup="AjaxRequest(this.value);" />
-    <br/>
+    <br />
     <div id="autoSuggestContainer" style="position:absolute; display:none;z-index:100;"></div>
-    <input type="submit"value="Search"/>
+    <input type="submit" value="Search" />
 
 </form>
 <table class="table">
     <thead>
         <tr>
-            
-            <th>
-                @Html.DisplayNameFor(model => model.Brand)
-            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Brand)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Model)
@@ -40,25 +39,26 @@
                 @Html.DisplayNameFor(model => model.Available)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Image)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CarTypeName)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.CarType)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) { 
-
-        <tr> 
-
-            <td> 
-
-                @Html.DisplayFor(modelItem => item.Brand)
-
-                @Html.Raw(item.Brand) 
-
-            </td> 
+@foreach (var item in Model) {
+        <tr>
+            <td>
                 @Html.DisplayFor(modelItem => item.Description)
-           
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Brand)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Model)
             </td>
@@ -72,7 +72,14 @@
                 @Html.DisplayFor(modelItem => item.Available)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CarType)
+                @*@Html.DisplayFor(modelItem => item.Image)*@
+                <img src ="@Url.Content("~/uploads/"+item.Image)" alt="carDescription Image" width="150" height="180"/>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CarTypeName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CarType.Id)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.CarDescriptionId">Edit</a> |
@@ -84,15 +91,15 @@
     </tbody>
 </table>
 <script type="text/javascript">
-function AjaxRequest (searchString){
-    if (searchString.length < 2){
-        document.getElementById("autoSuggestContainer").innerHTML = "";
-        return;
-    }
-    //alert ("Testing searchString="+ searchString)
-    var xmlhttp = new XMLHttpRequest();
+    function AjaxRequest(searchString) {
+        if (searchString.length < 2) {
+            document.getElementById("autoSuggestContainer").innerHTML = "";
+            return;
+        }
+        //alert ("Testing searchString="+ searchString)
+        var xmlhttp = new XMLHttpRequest();
         var url = "/CarDescriptions/indexAjax?searchString" + searchString;
-        xmlhttp.open("GET",url,false);
+        xmlhttp.open("GET", url, false);
         xmlhttp.send();
         document.getElementById("autoSuggestContainer").style.display = "block";
 
@@ -135,5 +142,6 @@ function AjaxRequest (searchString){
         document.getElementById("autoSuggestContainer").innerHTML = autoSuggestions;
 
 
-}    
+    }
 </script>
+

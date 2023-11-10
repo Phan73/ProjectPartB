@@ -10,8 +10,8 @@ namespace ProjectPartB.Models
             CarDescriptions = new HashSet<CarDescription>();
         }
 
-        public int CarTypeId { get; set; }
-        public int TypeName { get; set; }
+        public int Id { get; set; }
+        public int Name { get; set; }
 
         public virtual ICollection<CarDescription> CarDescriptions { get; set; }
     }
