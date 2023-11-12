@@ -27,7 +27,12 @@ public class CustomIdentityContext : IdentityDbContext<WebUser>
           new IdentityRole { Name = "Visitor", NormalizedName = "VISITOR" }
           };
         builder.Entity<IdentityRole>().HasData(roles);
+         builder.Entity<WebUser>()
+        .HasOne(u => u.Membership)                                    
+        .WithOne(m => m.User)
+        .HasForeignKey<WebUser>(u => u.MembershipId);
         builder.Entity<WebUser>()
+    .Property(u => u.UserId)
 
     .HasDefaultValueSql("NEWID()");
         // Create USERS
