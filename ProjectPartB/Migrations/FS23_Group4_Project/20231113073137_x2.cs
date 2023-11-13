@@ -4,7 +4,7 @@
 
 namespace ProjectPartB.Migrations.FS23_Group4_Project
 {
-    public partial class CorrectionTable1 : Migration
+    public partial class x2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

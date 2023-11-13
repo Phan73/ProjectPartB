@@ -32,7 +32,7 @@ public class CustomIdentityContext : IdentityDbContext<WebUser>
         .WithOne(m => m.User)
         .HasForeignKey<WebUser>(u => u.MembershipId);
         builder.Entity<WebUser>()
-    .Property(u => u.UserId)
+    .Property(u => u.UserID)
 
     .HasDefaultValueSql("NEWID()");
         // Create USERS

@@ -15,11 +15,11 @@ namespace ProjectPartB.Models
         }
      
         public string Id { get; set; } = null!;
-        public string FullName { get; set; } = null!;
-        public string Address { get; set; } = null!;
-        public string Phone { get; set; } = null!;
-        public string DrivingLicense { get; set; } = null!;
-        public string UserId { get; set; } = null!;
+        public string ?FullName { get; set; } 
+        public string ?Address { get; set; } 
+        public string ?Phone { get; set; } 
+        public string ?DrivingLicense { get; set; } 
+        public string UserId { get; set; }
         public string? UserName { get; set; }
         public string? NormalizedUserName { get; set; }
         public string? Email { get; set; }
@@ -34,7 +34,7 @@ namespace ProjectPartB.Models
         public DateTimeOffset? LockoutEnd { get; set; }
         public bool LockoutEnabled { get; set; }
         public int AccessFailedCount { get; set; }
-        public virtual Membership Membership { get; set; }
+        public virtual Membership Memberships { get; set; }
         public int? MembershipId { get; set; }
 
         public virtual ICollection<AspNetUserClaim> AspNetUserClaims { get; set; }

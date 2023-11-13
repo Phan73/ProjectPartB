@@ -1,5 +1,8 @@
-﻿@model IEnumerable<ProjectPartB.Models.CarDescription>
-
+﻿
+@model IPagedList<ProjectPartB.Models.CarDescription>
+@using X.PagedList.Mvc.Core;
+@using X.PagedList;
+@using X.PagedList.Web.Common;
 @{
     ViewData["Title"] = "Index";
 }
@@ -17,35 +20,42 @@
     <input type="submit" value="Search" />
 
 </form>
+@Html.PagedListPager(Model, page => Url.Action("Index",new { Page = page }), new PagedListRenderOptions
+{
+LiElementClasses = new string[] { "page-item" },
+PageClasses = new string[] { "page-link" }
+})
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Description)
+                @Html.DisplayNameFor(model => model.First().Description)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Brand)
+                @*@Html.DisplayNameFor(model => model.First().ProductName)*@
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParam"]">@Html.DisplayNameFor(model => model.First().Brand)</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Model)
+                @Html.DisplayNameFor(model => model.First().Model)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Color)
+                @Html.DisplayNameFor(model => model.First().Color)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.RatePerDay)
+                @Html.DisplayNameFor(model => model.First().RatePerDay)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Available)
+                @Html.DisplayNameFor(model => model.First().Available)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Image)
+                @Html.DisplayNameFor(model => model.First().Image)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CarTypeName)
+                @Html.DisplayNameFor(model => model.First().CarTypeName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CarType)
+                @Html.DisplayNameFor(model => model.First().CarType)
             </th>
             <th></th>
         </tr>
@@ -54,7 +64,7 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Description)
+                    @Html.Raw(item.Description)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Brand)
@@ -85,6 +95,7 @@
                 <a asp-action="Edit" asp-route-id="@item.CarDescriptionId">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.CarDescriptionId">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.CarDescriptionId">Delete</a>
+                <a asp-controller="ShoppingCart" asp-action="AddToCart" asp-route-id="@item.CarDescriptionId" class="btn btn-primary">Add To Cart</a>
             </td>
         </tr>
 }

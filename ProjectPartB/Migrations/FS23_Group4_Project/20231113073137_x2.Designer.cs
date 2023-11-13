@@ -12,8 +12,8 @@ using ProjectPartB.Models;
 namespace ProjectPartB.Migrations.FS23_Group4_Project
 {
     [DbContext(typeof(FS23_Group4_ProjectContext))]
-    [Migration("20231110134339_CorrectionTable")]
-    partial class CorrectionTable
+    [Migration("20231113073137_x2")]
+    partial class x2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -50,9 +50,6 @@ namespace ProjectPartB.Migrations.FS23_Group4_Project
                     b.Property<string>("Address")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("AspNetUserId")
-                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ConcurrencyStamp")
                         .HasColumnType("nvarchar(max)");
@@ -105,7 +102,7 @@ namespace ProjectPartB.Migrations.FS23_Group4_Project
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
 
-                    b.Property<string>("UserId")
+                    b.Property<string>("UserID")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -113,8 +110,6 @@ namespace ProjectPartB.Migrations.FS23_Group4_Project
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AspNetUserId");
 
                     b.ToTable("WebUser");
                 });
@@ -172,14 +167,12 @@ namespace ProjectPartB.Migrations.FS23_Group4_Project
                         .HasColumnType("int");
 
                     b.Property<string>("Address")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ConcurrencyStamp")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("DrivingLicense")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
@@ -189,7 +182,6 @@ namespace ProjectPartB.Migrations.FS23_Group4_Project
                         .HasColumnType("bit");
 
                     b.Property<string>("FullName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
@@ -211,7 +203,6 @@ namespace ProjectPartB.Migrations.FS23_Group4_Project
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
@@ -528,15 +519,6 @@ namespace ProjectPartB.Migrations.FS23_Group4_Project
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ProjectPartB.Areas.Identity.Data.WebUser", b =>
-                {
-                    b.HasOne("ProjectPartB.Models.AspNetUser", "AspNetUser")
-                        .WithMany()
-                        .HasForeignKey("AspNetUserId");
-
-                    b.Navigation("AspNetUser");
-                });
-
             modelBuilder.Entity("ProjectPartB.Models.AspNetRoleClaim", b =>
                 {
                     b.HasOne("ProjectPartB.Models.AspNetRole", "Role")
@@ -550,11 +532,11 @@ namespace ProjectPartB.Migrations.FS23_Group4_Project
 
             modelBuilder.Entity("ProjectPartB.Models.AspNetUser", b =>
                 {
-                    b.HasOne("ProjectPartB.Models.Membership", "Membership")
+                    b.HasOne("ProjectPartB.Models.Membership", "Memberships")
                         .WithMany("Users")
                         .HasForeignKey("MembershipId");
 
-                    b.Navigation("Membership");
+                    b.Navigation("Memberships");
                 });
 
             modelBuilder.Entity("ProjectPartB.Models.AspNetUserClaim", b =>
@@ -650,8 +632,7 @@ namespace ProjectPartB.Migrations.FS23_Group4_Project
 
             modelBuilder.Entity("ProjectPartB.Areas.Identity.Data.WebUser", b =>
                 {
-                    b.Navigation("Membership")
-                        .IsRequired();
+                    b.Navigation("Membership");
                 });
 
             modelBuilder.Entity("ProjectPartB.Models.AspNetRole", b =>

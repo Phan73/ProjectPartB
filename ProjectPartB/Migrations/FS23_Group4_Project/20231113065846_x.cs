@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ProjectPartB.Migrations
 {
-    public partial class CorrectionTable1 : Migration
+    public partial class x : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-       
+
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
@@ -61,7 +61,7 @@ namespace ProjectPartB.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-     
+
 
 
             migrationBuilder.CreateTable(
@@ -225,7 +225,7 @@ namespace ProjectPartB.Migrations
                     { "6cf0002c-9fb3-4cf8-b7f3-ebc72ebb9144", "e8f8b533-0525-4f46-a4cc-54fad84a068d" }
                 });
 
-        
+
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -239,7 +239,7 @@ namespace ProjectPartB.Migrations
                 unique: true,
                 filter: "[NormalizedName] IS NOT NULL");
 
-      
+
 
 
             migrationBuilder.CreateIndex(
@@ -247,7 +247,7 @@ namespace ProjectPartB.Migrations
                 table: "AspNetUserClaims",
                 column: "UserId");
 
-        
+
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetUserLogins_UserId",
@@ -291,7 +291,7 @@ namespace ProjectPartB.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-           
+
 
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");

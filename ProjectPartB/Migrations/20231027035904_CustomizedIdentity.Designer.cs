@@ -12,8 +12,8 @@ using ProjectPartB.Areas.Identity.Data;
 namespace ProjectPartB.Migrations
 {
     [DbContext(typeof(CustomIdentityContext))]
-    [Migration("20231101110154_AddMembershipToUser")]
-    partial class AddMembershipToUser
+    [Migration("20231027035904_CustomizedIdentity")]
+    partial class CustomizedIdentity
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -49,36 +49,6 @@ namespace ProjectPartB.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "989a86f7-1fe4-4e2f-b94e-bdbf7d4f8fc8",
-                            ConcurrencyStamp = "4166e685-c284-467f-86c3-22ce9698d38f",
-                            Name = "Administrator",
-                            NormalizedName = "ADMINISTRATOR"
-                        },
-                        new
-                        {
-                            Id = "d90d7613-5937-4465-a91a-8ff48bb550e2",
-                            ConcurrencyStamp = "e18fa8eb-0c05-4e3c-9520-16a8cbf4bbe2",
-                            Name = "Manager",
-                            NormalizedName = "MANAGER"
-                        },
-                        new
-                        {
-                            Id = "70c17622-d13a-4bf2-9622-28d82537f522",
-                            ConcurrencyStamp = "ad1d12a0-a638-4e40-904f-cac7ba239a31",
-                            Name = "Editor",
-                            NormalizedName = "EDITOR"
-                        },
-                        new
-                        {
-                            Id = "74be8d99-9966-4bb1-9165-ed92b0aa7d89",
-                            ConcurrencyStamp = "428336fe-c35f-4f19-b76d-d00ee7daddd0",
-                            Name = "Visitor",
-                            NormalizedName = "VISITOR"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -168,28 +138,6 @@ namespace ProjectPartB.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = "68ff6497-cbc7-4827-a578-a4fc3a1bfa83",
-                            RoleId = "989a86f7-1fe4-4e2f-b94e-bdbf7d4f8fc8"
-                        },
-                        new
-                        {
-                            UserId = "f1eab00f-2253-4ff4-9e7e-c5da6b6e7bf9",
-                            RoleId = "d90d7613-5937-4465-a91a-8ff48bb550e2"
-                        },
-                        new
-                        {
-                            UserId = "e941684a-6856-4f3b-af8d-0403489b6842",
-                            RoleId = "70c17622-d13a-4bf2-9622-28d82537f522"
-                        },
-                        new
-                        {
-                            UserId = "815beac9-ab07-4879-8387-65dd1b56ce46",
-                            RoleId = "74be8d99-9966-4bb1-9165-ed92b0aa7d89"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -296,92 +244,6 @@ namespace ProjectPartB.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "68ff6497-cbc7-4827-a578-a4fc3a1bfa83",
-                            AccessFailedCount = 0,
-                            Address = "admin",
-                            ConcurrencyStamp = "113b672b-ce82-45a2-b853-40744af23969",
-                            DrivingLicense = "fads213",
-                            Email = "administrator@example.com",
-                            EmailConfirmed = true,
-                            FullName = "Admin",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "ADMINISTRATOR@EXAMPLE.COM",
-                            NormalizedUserName = "ADMINISTRATOR@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAefTHdS87V+pVhvc0EO7rNPphOTQZmdPft41KYBXriTnLur/QoAd2g1MZ93/Cmh/Q==",
-                            Phone = "0210888888",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "c143f0e5-4c2a-42d3-ba1e-b8da48a7540b",
-                            TwoFactorEnabled = false,
-                            UserID = "1",
-                            UserName = "administrator@example.com"
-                        },
-                        new
-                        {
-                            Id = "f1eab00f-2253-4ff4-9e7e-c5da6b6e7bf9",
-                            AccessFailedCount = 0,
-                            Address = "manager",
-                            ConcurrencyStamp = "c8cb0fd3-9d88-4b26-814b-091504572c8d",
-                            DrivingLicense = "fads213",
-                            Email = "manager@example.com",
-                            EmailConfirmed = true,
-                            FullName = "manager",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "MANAGER@EXAMPLE.COM",
-                            NormalizedUserName = "MANAGER@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJYvoU5zrluY2/K5PkQ30xUvLHpqMnnbASh0guMR8p4IrNEUHaBjjIFxGZXSQqdYGQ==",
-                            Phone = "0210888888",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "53217a39-cde8-4a6c-b7c3-aae4aa344a6d",
-                            TwoFactorEnabled = false,
-                            UserID = "2",
-                            UserName = "manager@example.com"
-                        },
-                        new
-                        {
-                            Id = "e941684a-6856-4f3b-af8d-0403489b6842",
-                            AccessFailedCount = 0,
-                            Address = "editor",
-                            ConcurrencyStamp = "13ff88cd-f6be-4d74-801c-2113a3c088f4",
-                            DrivingLicense = "fads213",
-                            Email = "editor@example.com",
-                            EmailConfirmed = true,
-                            FullName = "editor",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "EDITOR@EXAMPLE.COM",
-                            NormalizedUserName = "EDITOR@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAENMJLNWele+3jw8hLvC2OqRQZZkhMTWnvKiHLOJxD1xp3xPapdyD/ijWhTqW8deavQ==",
-                            Phone = "0210888888",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "8b3f50d5-9783-4e4e-8441-a3955ea23f2d",
-                            TwoFactorEnabled = false,
-                            UserID = "3",
-                            UserName = "editor@example.com"
-                        },
-                        new
-                        {
-                            Id = "815beac9-ab07-4879-8387-65dd1b56ce46",
-                            AccessFailedCount = 0,
-                            Address = "visitor",
-                            ConcurrencyStamp = "0c4936d4-6890-490e-9edf-4244e1ecdb34",
-                            DrivingLicense = "fads213",
-                            Email = "visitor@example.com",
-                            EmailConfirmed = true,
-                            FullName = "visitor",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "VISITOR@EXAMPLE.COM",
-                            NormalizedUserName = "VISITOR@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEEd63MVE9UDdxgDVrH4TBA3E+TEODgqWKmrYquv6OMQEFtRCsFkglqQ+DelsdI0bQQ==",
-                            Phone = "0210888888",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "ee63e1b5-9f84-4e27-81c6-3b7e4d4dacde",
-                            TwoFactorEnabled = false,
-                            UserID = "4",
-                            UserName = "visitor@example.com"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

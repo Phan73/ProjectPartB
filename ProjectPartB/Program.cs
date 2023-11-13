@@ -18,7 +18,13 @@ builder.Services.AddDefaultIdentity<WebUser>(options => options.SignIn.RequireCo
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
+var services = builder.Services;
+var configuration = builder.Configuration;
+services.AddAuthentication().AddGoogle(googleOptions =>
+{
+    googleOptions.ClientId = configuration["Authentication:Google:ClientId"];
+    googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"];
+});
 // Add session services
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>

@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using ProjectPartB.Models;
+using X.PagedList;
 
 namespace ProjectPartB.Controllers
 {
@@ -27,14 +31,26 @@ namespace ProjectPartB.Controllers
         //    var fS23_Group4_ProjectContext = _context.CarDescriptions.Include(c => c.CarType);
         //    return View(await fS23_Group4_ProjectContext.ToListAsync());
         //}
-        public async Task<IActionResult> Index(string searchString)
+        [Authorize(Roles = "Visitor,Administrator,Editor")]
+        public IActionResult Index (string searchString,int? page, string sortOrder)
         {
+            var pageNumber = page ?? 1;
+            ViewData["NameSortParam"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             var carDescription = from e in _context.CarDescriptions select e;
             if (!string.IsNullOrEmpty(searchString))
             {
                 carDescription = carDescription.Where(s => s.Brand.Contains(searchString));
             }
-            return View(await carDescription.ToListAsync());
+            //sort car by car availability
+            carDescription = carDescription.OrderBy(s => s.Brand);
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    carDescription = carDescription.OrderByDescending(s => s.Brand);
+                    break;
+            }
+                    //return View(await carDescription.ToListAsync());
+                    return View(carDescription.ToPagedList(pageNumber, 10));
         }
         public string IndexAJAX(string searchString)
 
@@ -51,7 +67,7 @@ namespace ProjectPartB.Controllers
             return jason;
 
         }
-
+        [Authorize(Roles = "Visitor,Administrator,Editor")]
         // GET: CarDescriptions/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -70,14 +86,14 @@ namespace ProjectPartB.Controllers
 
             return View(carDescription);
         }
-
+        [Authorize(Roles = "Administrator,Editor")]
         // GET: CarDescriptions/Create
         public IActionResult Create()
         {
             ViewData["CarTypeId"] = new SelectList(_context.CarTypes, "Id", "Id");
             return View();
         }
-
+        [Authorize(Roles = "Administrator,Editor")]
         // POST: CarDescriptions/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -96,6 +112,7 @@ namespace ProjectPartB.Controllers
         }
 
         // GET: CarDescriptions/Edit/5
+        [Authorize(Roles = "Administrator,Editor")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.CarDescriptions == null)
@@ -111,7 +128,7 @@ namespace ProjectPartB.Controllers
             ViewData["CarTypeId"] = new SelectList(_context.CarTypes, "Id", "Id", carDescription.CarTypeId);
             return View(carDescription);
         }
-
+        [Authorize(Roles = "Administrator,Editor")]
         // POST: CarDescriptions/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -147,6 +164,7 @@ namespace ProjectPartB.Controllers
         }
 
         // GET: CarDescriptions/Delete/5
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.CarDescriptions == null)
@@ -164,7 +182,7 @@ namespace ProjectPartB.Controllers
 
             return View(carDescription);
         }
-
+        [Authorize(Roles = "Administrator")]
         // POST: CarDescriptions/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

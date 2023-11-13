@@ -12,8 +12,8 @@ using ProjectPartB.Areas.Identity.Data;
 namespace ProjectPartB.Migrations
 {
     [DbContext(typeof(CustomIdentityContext))]
-    [Migration("20231110121957_CorrectionTable1")]
-    partial class CorrectionTable1
+    [Migration("20231113065846_x")]
+    partial class x
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

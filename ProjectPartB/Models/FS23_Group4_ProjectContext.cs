@@ -25,6 +25,7 @@ namespace ProjectPartB.Models
         public virtual DbSet<UserDescription> UserDescriptions { get; set; } = null!;
         public virtual DbSet<UserEnum> UserEnums { get; set; } = null!;
 
+
      
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
