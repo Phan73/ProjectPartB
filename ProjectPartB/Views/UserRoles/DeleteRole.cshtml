@@ -1,0 +1,14 @@
+﻿@model Microsoft.AspNetCore.Identity.IdentityRole
+
+<h1>Delete Role</h1>
+
+<p>Are you sure you want to delete the role: @Model.Name?</p>
+
+<form asp-action="DeleteRole">
+    <input type="hidden" asp-for="Id" />
+
+    <div>
+        <button type="submit">Delete</button>
+        <a href="@Url.Action("Index")">Cancel</a>
+    </div>
+</form>
