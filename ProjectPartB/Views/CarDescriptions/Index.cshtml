@@ -7,11 +7,16 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<h1>Choose your car!!</h1>
+@{
+    // Check if the user is in the "Administrator" or "Visitor" role
+    bool isUserAdminOrVisitor = User.IsInRole("Administrator") || User.IsInRole("Editor");
+}@if (isUserAdminOrVisitor)
+{
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+}
 <form id="searchForm" action="/CarDescriptions/index" method="get">
     <p>Search Car Description</p>
     <input type="text" id="searchString" name="searchString" style="width:190px" autocomplete="off" onkeyup="AjaxRequest(this.value);" />
