@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjectPartB.Models;
 
@@ -11,9 +12,10 @@ using ProjectPartB.Models;
 namespace ProjectPartB.Migrations.FS23_Group4_Project
 {
     [DbContext(typeof(FS23_Group4_ProjectContext))]
-    partial class FS23_Group4_ProjectContextModelSnapshot : ModelSnapshot
+    [Migration("20231115114514_updateCart")]
+    partial class updateCart
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -371,6 +373,12 @@ namespace ProjectPartB.Migrations.FS23_Group4_Project
 
             modelBuilder.Entity("ProjectPartB.Models.CartItem", b =>
                 {
+                    b.Property<int>("UserId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"), 1L, 1);
+
                     b.Property<string>("AspNetUserId")
                         .HasColumnType("nvarchar(450)");
 
@@ -386,7 +394,9 @@ namespace ProjectPartB.Migrations.FS23_Group4_Project
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("AspNetUserId");
+                    b.HasKey("UserId");
+
+                    b.HasIndex("AspNetUserId");
 
                     b.HasIndex("CarDescriptionId");
 
@@ -582,9 +592,7 @@ namespace ProjectPartB.Migrations.FS23_Group4_Project
                 {
                     b.HasOne("ProjectPartB.Models.AspNetUser", "AspNetUser")
                         .WithMany()
-                        .HasForeignKey("AspNetUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AspNetUserId");
 
                     b.HasOne("ProjectPartB.Models.CarDescription", "Car")
                         .WithMany()

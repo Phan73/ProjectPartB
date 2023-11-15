@@ -20,6 +20,7 @@ namespace ProjectPartB.Controllers
             _userManager = userManager;
             _roleManager = roleManager;
         }
+        [Authorize(Roles = "Administrator")]
         [HttpPost]
         public async Task<IActionResult> CreateRole(IdentityRole model)
         {
@@ -34,6 +35,7 @@ namespace ProjectPartB.Controllers
             var roles = _roleManager.Roles;
             return View(roles);
         }
+        [Authorize(Roles = "Administrator")]
         // Create a new role
         [HttpGet]
         public IActionResult CreateRole()
@@ -41,8 +43,8 @@ namespace ProjectPartB.Controllers
             return View();
         }
 
-       
 
+        [Authorize(Roles = "Administrator")]
         [HttpGet]
         public async Task<IActionResult> EditRole(string id)
         {
@@ -57,7 +59,7 @@ namespace ProjectPartB.Controllers
             var model = new EditRoleViewModel { RoleId = role.Id, RoleName = role.Name };
             return View(model);
         }
-
+        [Authorize(Roles = "Administrator")]
         [HttpPost]
         public async Task<IActionResult> EditRole(EditRoleViewModel model)
         {
@@ -89,7 +91,7 @@ namespace ProjectPartB.Controllers
 
 
         // Delete a role
-        
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> DeleteRole(string id)
         {
             var role = await _roleManager.FindByIdAsync(id);
@@ -117,6 +119,7 @@ namespace ProjectPartB.Controllers
         // Users CRUD
 
         // View all users
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Users()
         {
             var users = await _userManager.Users.ToListAsync();
@@ -140,7 +143,7 @@ namespace ProjectPartB.Controllers
 
             return View(model);
         }
-
+        [Authorize(Roles = "Administrator")]
         // Assign user to a different role
         [HttpGet]
         public async Task<IActionResult> AssignRole(string id)
@@ -162,7 +165,7 @@ namespace ProjectPartB.Controllers
 
             return View(model);
         }
-
+        [Authorize(Roles = "Administrator")]
         [HttpPost]
         public async Task<IActionResult> AssignRole(AssignRoleViewModel model)
         {
@@ -199,7 +202,7 @@ namespace ProjectPartB.Controllers
             model.Roles = await _roleManager.Roles.ToListAsync();
             return View(model);
         }
-
+        [Authorize(Roles = "Administrator")]
         [HttpGet]
         public async Task<IActionResult> UpdateRole(string id)
         {

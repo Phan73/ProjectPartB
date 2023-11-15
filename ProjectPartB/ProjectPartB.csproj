@@ -24,7 +24,8 @@
 
   <ItemGroup>
     <Folder Include="Migrations\FS23_Group4_Project\" />
-    <Folder Include="wwwroot\uploads\NewFolder\" />
+    <Folder Include="Views\Home\NewFolder\" />
+    <Folder Include="wwwroot\uploads\" />
   </ItemGroup>
 
 </Project>

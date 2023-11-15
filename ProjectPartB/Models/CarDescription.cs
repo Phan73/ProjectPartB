@@ -8,7 +8,7 @@ namespace ProjectPartB.Models
         public CarDescription()
         {
             CarAvailabilities = new HashSet<CarAvailability>();
-            Rentals = new HashSet<Rental>();
+           
         }
 
         public int CarDescriptionId { get; set; }
@@ -23,6 +23,6 @@ namespace ProjectPartB.Models
         public string CarTypeName { get; set; }
         public virtual CarType? CarType { get; set; }
         public virtual ICollection<CarAvailability> CarAvailabilities { get; set; }
-        public virtual ICollection<Rental> Rentals { get; set; }
+        
     }
 }

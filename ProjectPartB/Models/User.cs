@@ -7,7 +7,7 @@ namespace ProjectPartB.Models
     {
         public User()
         {
-            Rentals = new HashSet<Rental>();
+          
         }
 
         public int UserId { get; set; }
@@ -18,6 +18,6 @@ namespace ProjectPartB.Models
 
         public virtual UserType? Type { get; set; }
         public virtual UserDescription? UserDescription { get; set; }
-        public virtual ICollection<Rental> Rentals { get; set; }
+       
     }
 }

@@ -54,9 +54,7 @@ PageClasses = new string[] { "page-link" }
             <th>
                 @Html.DisplayNameFor(model => model.First().CarTypeName)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.First().CarType)
-            </th>
+          
             <th></th>
         </tr>
     </thead>
@@ -83,14 +81,12 @@ PageClasses = new string[] { "page-link" }
             </td>
             <td>
                 @*@Html.DisplayFor(modelItem => item.Image)*@
-                <img src ="@Url.Content("~/uploads/"+item.Image)" alt="carDescription Image" width="150" height="180"/>
+                <img src="@Url.Content("~/uploads/"+item.Image)" alt="rental cars" width="160" height="150">
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CarTypeName)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CarTypeId)
-            </td>
+            
             <td>
                 <a asp-action="Edit" asp-route-id="@item.CarDescriptionId">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.CarDescriptionId">Details</a> |

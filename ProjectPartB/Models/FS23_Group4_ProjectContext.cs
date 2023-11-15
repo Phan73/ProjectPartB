@@ -21,10 +21,10 @@ namespace ProjectPartB.Models
         public virtual DbSet<CarAvailability> CarAvailabilities { get; set; } = null!;
         public virtual DbSet<CarDescription> CarDescriptions { get; set; } = null!;
         public virtual DbSet<CarType> CarTypes { get; set; } = null!;
-        public virtual DbSet<Rental> Rentals { get; set; } = null!;
+  
         public virtual DbSet<UserDescription> UserDescriptions { get; set; } = null!;
         public virtual DbSet<UserEnum> UserEnums { get; set; } = null!;
-
+        public virtual DbSet<CartItem> CartItems { get; set; } = null!;
 
      
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -68,26 +68,7 @@ namespace ProjectPartB.Models
                 entity.ToTable("CarType");
             });
 
-            modelBuilder.Entity<Rental>(entity =>
-            {
-                entity.ToTable("Rental");
-
-                entity.Property(e => e.EndDate).HasColumnType("date");
-
-                entity.Property(e => e.StartDate).HasColumnType("date");
-
-                entity.Property(e => e.TotalCost).HasColumnType("decimal(10, 2)");
-
-                entity.HasOne(d => d.CarDescription)
-                    .WithMany(p => p.Rentals)
-                    .HasForeignKey(d => d.CarDescriptionId)
-                    .HasConstraintName("FK__Rental__CarDescr__3587F3E0");
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.Rentals)
-                    .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK__Rental__UserId__367C1819");
-            });
+          
 
             modelBuilder.Entity<UserDescription>(entity =>
             {

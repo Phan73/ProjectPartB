@@ -5,10 +5,7 @@ namespace ProjectPartB.Models
 {
     public partial class CarType
     {
-        public CarType()
-        {
-            CarDescriptions = new HashSet<CarDescription>();
-        }
+        
 
         public int Id { get; set; }
         public string Name { get; set; }

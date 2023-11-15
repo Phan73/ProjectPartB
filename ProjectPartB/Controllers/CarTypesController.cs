@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -19,6 +21,7 @@ namespace ProjectPartB.Controllers
         }
 
         // GET: CarTypes
+        [Authorize(Roles = "Administrator,Editor")]
         public async Task<IActionResult> Index()
         {
               return _context.CarTypes != null ? 
@@ -27,6 +30,7 @@ namespace ProjectPartB.Controllers
         }
 
         // GET: CarTypes/Details/5
+        [Authorize(Roles = "Administrator,Editor")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.CarTypes == null)
@@ -45,6 +49,7 @@ namespace ProjectPartB.Controllers
         }
 
         // GET: CarTypes/Create
+        [Authorize(Roles = "Administrator,Editor")]
         public IActionResult Create()
         {
             return View();
@@ -67,6 +72,7 @@ namespace ProjectPartB.Controllers
         }
 
         // GET: CarTypes/Edit/5
+        [Authorize(Roles = "Administrator,Editor")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.CarTypes == null)
@@ -118,6 +124,7 @@ namespace ProjectPartB.Controllers
         }
 
         // GET: CarTypes/Delete/5
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.CarTypes == null)

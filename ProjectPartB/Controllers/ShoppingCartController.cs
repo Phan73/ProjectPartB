@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ProjectPartB.Models;
+using System.Data;
 
 namespace ProjectPartB.Controllers
 {
@@ -10,13 +12,14 @@ namespace ProjectPartB.Controllers
         {
             _context = context;
         }
-
+        [Authorize(Roles = "Visitor,Administrator,Editor")]
         public IActionResult Index()
         {
             var cartItems =  GetCartItems();
             return View(cartItems);
 
         }
+        [Authorize(Roles = "Visitor,Administrator,Editor")]
         public IActionResult AddToCart(int Id)
         {
             var car = _context.CarDescriptions.FirstOrDefault(p => p.CarDescriptionId == Id);
@@ -36,6 +39,7 @@ namespace ProjectPartB.Controllers
             }
            return RedirectToAction("Index");
         }
+        [Authorize(Roles = "Visitor,Administrator,Editor")]
         public IActionResult RemoveFromCart(int productId) 
         {
             var cartItems = GetCartItems();
@@ -54,13 +58,13 @@ namespace ProjectPartB.Controllers
             SaveCartItems(cartItems);
             return RedirectToAction("Index");
         }
-
+        [Authorize(Roles = "Visitor,Administrator,Editor")]
         public IActionResult ClearCart()
         {
             SaveCartItems(new List<CartItem>());
             return RedirectToAction("Index");
         }
-
+        [Authorize(Roles = "Visitor,Administrator,Editor")]
         private List<CartItem> GetCartItems()
         {
             var cartItems = HttpContext.Session.Get<List<CartItem>>("CartItems");

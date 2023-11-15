@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjectPartB.Models;
 
@@ -11,9 +12,10 @@ using ProjectPartB.Models;
 namespace ProjectPartB.Migrations.FS23_Group4_Project
 {
     [DbContext(typeof(FS23_Group4_ProjectContext))]
-    partial class FS23_Group4_ProjectContextModelSnapshot : ModelSnapshot
+    [Migration("20231115123054_updateCart1")]
+    partial class updateCart1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
