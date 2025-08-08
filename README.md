@@ -91,8 +91,8 @@ Suggested stack:
 ## 📧 Contact
 
 For more information or collaboration, please contact:  
-📩 [your-email@example.com]  
-🌐 Project by *Ahmad Wedyan*  
+📩 [phan73@manukaumail.com]  
+🌐 Project by *Luan Cao Phan*
 
 ---
 
