@@ -84,7 +84,7 @@ Suggested stack:
 
 ## 📌 Status
 
-🔧 Planning stage — wireframes and design specification in progress.
+🔧 Finished 
 
 ---
 
