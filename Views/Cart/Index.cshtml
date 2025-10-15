@@ -1,0 +1,16 @@
+﻿
+@model List<UserCartViewModel>
+
+@foreach (var userCart in Model)
+{
+    <h2>@userCart.FullName's Cart</h2>
+    <p>Driver License: @userCart.DriverLicense</p>
+
+    @foreach (var cartItem in userCart.CartItems) // Assuming CartItems is a list of CartItemViewModel
+    {
+        <div>Car Brand: @cartItem.CarId</div>
+        <div>Quantity: @cartItem.Quantity</div>
+        <div>Rental Duration: @cartItem.RentalDuration</div> 
+        <div>Start Date: @cartItem.StartDate.ToShortDateString()</div>
+    }
+}

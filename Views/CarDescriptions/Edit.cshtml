@@ -1,0 +1,85 @@
+﻿@model ProjectPartB.Models.CarDescription
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>CarDescription</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" asp-controller="CarDescriptions" method="post" enctype="multipart/form-data">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="CarTypeName" />
+            <div class="form-group">
+                <label asp-for="CarTypeName" class="control-label"></label>
+                <select asp-for="CarTypeName" class="form-control" asp-items="ViewBag.CarTypeName"></select>
+                <span asp-validation-for="CarTypeName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                @*<input asp-for="ProductName" class="form-control" />*@
+                <textarea asp-for="Description" cols="20" rows="3" class="form-control"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Brand" class="control-label"></label>
+                <input asp-for="Brand" class="form-control" />
+                <span asp-validation-for="Brand" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Model" class="control-label"></label>
+                <input asp-for="Model" class="form-control" />
+                <span asp-validation-for="Model" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Color" class="control-label"></label>
+                <input asp-for="Color" class="form-control" />
+                <span asp-validation-for="Color" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RatePerDay" class="control-label"></label>
+                <input asp-for="RatePerDay" class="form-control" />
+                <span asp-validation-for="RatePerDay" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Available" class="control-label"></label>
+                <input asp-for="Available" class="form-control" />
+                <span asp-validation-for="Available" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Image" class="control-label"></label>
+                <input asp-for="Image" type="file" accept="image/jpeg,image/png" class="form-control" />
+                <span asp-validation-for="Image" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CarTypeName" class="control-label"></label>
+                <input asp-for="CarTypeName" class="form-control" />
+                <span asp-validation-for="CarTypeName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.0.20/tinymce.min.js"></script>
+<script type="text/javascript">
+    tinymce.init({
+        selector: 'textarea',
+        plugins: "emoticons textcolor",
+        toolbar: "undo redo styleselect bold italic emoticons forecolor backcolor fontselect",
+        width: 600,
+        height: 600,
+        resize: 'both',
+        placeholder: 'Type here...',
+    });
+</script>
