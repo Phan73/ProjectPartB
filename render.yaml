@@ -1,8 +1,9 @@
 services:
   - type: web
-    name: projectpartb
+    name: ProjectPartB
     env: dotnet
     plan: free
-    buildCommand: "dotnet publish -c Release -o out"
-    startCommand: "dotnet out/ProjectPartB.dll"
+    buildCommand: dotnet publish -c Release -o out
+    startCommand: dotnet out/ProjectPartB.dll
     autoDeploy: true
+    branch: main
